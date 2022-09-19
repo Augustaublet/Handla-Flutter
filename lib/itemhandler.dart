@@ -7,7 +7,7 @@ class ItemHandler extends ChangeNotifier {
   List<Item> _items = [];
   String url = "http://127.0.0.1:5000/api/shoppingList";
   String _mainUrl = "http://127.0.0.1:5000";
-  String _myKey = "14e7b2e6-97c1-47dc-9583-0fed83f884a0";
+  String _myKey = "mklsUgFnJ2AaFGeWz-RjjQ";
   String _path = "/api/shoppingList";
 
   // Construktor
@@ -18,14 +18,15 @@ class ItemHandler extends ChangeNotifier {
   List<Item> get items => _items; // getter för lista med items
 
   Future newItemList() async {
-    http.Response response = await http.get(Uri.parse("${_mainUrl}${_path}"));
+    http.Response response =
+        await http.get(Uri.parse("${_mainUrl}${_path}?key=$_myKey"));
     _items = createList(jsonDecode(response.body));
     notifyListeners();
   }
 
   Future addItem(String newItemName) async {
     http.Response response = await http.post(
-      Uri.parse("${_mainUrl}${_path}"),
+      Uri.parse("${_mainUrl}${_path}?key=$_myKey"),
       headers: {"Content-Type": "application/json"},
       body: json.encode({"title": newItemName}),
     );
@@ -35,7 +36,7 @@ class ItemHandler extends ChangeNotifier {
 
   Future updateItemIsDone(Item itemToUpdate) async {
     http.Response response = await http.put(
-      Uri.parse("$_mainUrl$_path/${itemToUpdate.id}"),
+      Uri.parse("$_mainUrl$_path/${itemToUpdate.id}?key=$_myKey"),
       headers: {"Content-Type": "application/json"},
       body: json.encode({
         "title": itemToUpdate.name,
@@ -47,8 +48,8 @@ class ItemHandler extends ChangeNotifier {
   }
 
   Future removeItem(Item itemToRemove) async {
-    http.Response response =
-        await http.delete(Uri.parse("$_mainUrl$_path/${itemToRemove.id}"));
+    http.Response response = await http
+        .delete(Uri.parse("$_mainUrl$_path/${itemToRemove.id}?key=$_myKey"));
     _items = createList(json.decode(response.body));
     notifyListeners();
   }
