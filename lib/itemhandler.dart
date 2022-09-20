@@ -57,6 +57,18 @@ class ItemHandler extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future removeAllDone() async {
+    _items.forEach(
+      (item) async {
+        if (item.isDone) {
+          http.Response response = await http.delete(Uri.parse(
+              "$_mainUrl$_path/${item.id}?key=${_currentKey.apiKey}"));
+        }
+      },
+    );
+    newItemList();
+  }
+
   Future removeItem(Item itemToRemove) async {
     http.Response response = await http.delete(Uri.parse(
         "$_mainUrl$_path/${itemToRemove.id}?key=${_currentKey.apiKey}"));

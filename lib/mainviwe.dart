@@ -5,6 +5,7 @@ import 'package:template/ItemViwe.dart';
 import 'package:template/itemhandler.dart';
 import './addviwe.dart';
 import './itemclass.dart';
+import "./navigationdrawer.dart";
 
 class MainViwe extends StatefulWidget {
   @override
@@ -47,6 +48,7 @@ class _MainViweState extends State<MainViwe> {
           ),
         ],
       ),
+      drawer: NavigationDrawer(),
       body: Consumer<ItemHandler>(
         builder: (context, ItemHandler, _) =>
             ItemViwe(_filtreraLista(ItemHandler.items, valtFilter)),
