@@ -22,7 +22,7 @@ class ItemHandler extends ChangeNotifier {
   }
 
   List<Item> get items => _items; // getter för lista med items
-
+  MyApiKey get currentKey => _currentKey;
   _loadCurrentKey() {
     _currentKey = _myApiKeys[0];
   }

@@ -18,7 +18,12 @@ class _MainViweState extends State<MainViwe> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey,
-        title: Center(child: const Text("TIG 333 ToDo")),
+        title: Center(
+          child: Consumer<ItemHandler>(
+            builder: (context, ItemHandler, _) =>
+                Text(ItemHandler.currentKey.title),
+          ),
+        ),
         actions: [
           DropdownButtonHideUnderline(
             child: Container(
