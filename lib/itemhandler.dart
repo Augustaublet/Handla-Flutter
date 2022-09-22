@@ -2,16 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:template/keyclass.dart';
+import './ToDoListclass.dart';
 import './itemclass.dart';
 
 class ItemHandler extends ChangeNotifier {
+  final String APIKEY = "mklsUgFnJ2AaFGeWz-RjjQ";
   List<Item> _items = [];
-  List<MyApiKey> _myApiKeys = [
-    MyApiKey("lista1", "mklsUgFnJ2AaFGeWz-RjjQ"),
-    MyApiKey("lista2", "SCzgKrYbsyQ7pjSRNzvwRA")
+  List<ToDoList> _ToDoLists = [
+    ToDoList("lista1", "0v_DQMrr3Qk"),
+    ToDoList("lista2", "KvSFI95gEtg")
   ];
-  var _currentKey;
+  var _currentList;
   String _mainUrl = "http://127.0.0.1:5000";
   String _path = "/api/shoppingList";
 
@@ -22,21 +23,28 @@ class ItemHandler extends ChangeNotifier {
   }
 
   List<Item> get items => _items; // getter för lista med items
-  MyApiKey get currentKey => _currentKey;
+  ToDoList get currentKey => _currentList;
+  List<ToDoList> get allKeys => _ToDoLists;
+
   _loadCurrentKey() {
-    _currentKey = _myApiKeys[0];
+    _currentList = _ToDoLists[0];
+  }
+
+  Future getAllLists() async {
+    http.Response response = await http
+        .get(Uri.parse("${_mainUrl}/api/allshoppinglists?key=${APIKEY}"));
   }
 
   Future newItemList() async {
     http.Response response = await http
-        .get(Uri.parse("${_mainUrl}${_path}?key=${_currentKey.apiKey}"));
+        .get(Uri.parse("${_mainUrl}${_path}?listID=${_currentList.listID}"));
     _items = createList(jsonDecode(response.body));
     notifyListeners();
   }
 
   Future addItem(String newItemName) async {
     http.Response response = await http.post(
-      Uri.parse("${_mainUrl}${_path}?key=${_currentKey.apiKey}"),
+      Uri.parse("${_mainUrl}${_path}?listID=${_currentList.listID}"),
       headers: {"Content-Type": "application/json"},
       body: json.encode({"title": newItemName}),
     );
@@ -46,7 +54,8 @@ class ItemHandler extends ChangeNotifier {
 
   Future updateItemIsDone(Item itemToUpdate) async {
     http.Response response = await http.put(
-      Uri.parse("$_mainUrl$_path/${itemToUpdate.id}?key=${_currentKey.apiKey}"),
+      Uri.parse(
+          "$_mainUrl$_path/${itemToUpdate.id}?listID=${_currentList.listID}"),
       headers: {"Content-Type": "application/json"},
       body: json.encode({
         "title": itemToUpdate.name,
@@ -62,7 +71,7 @@ class ItemHandler extends ChangeNotifier {
       (item) async {
         if (item.isDone) {
           http.Response response = await http.delete(Uri.parse(
-              "$_mainUrl$_path/${item.id}?key=${_currentKey.apiKey}"));
+              "$_mainUrl$_path/${item.id}?listID=${_currentList.listID}"));
         }
       },
     );
@@ -71,7 +80,7 @@ class ItemHandler extends ChangeNotifier {
 
   Future removeItem(Item itemToRemove) async {
     http.Response response = await http.delete(Uri.parse(
-        "$_mainUrl$_path/${itemToRemove.id}?key=${_currentKey.apiKey}"));
+        "$_mainUrl$_path/${itemToRemove.id}?listID=${_currentList.listID}"));
     _items = createList(json.decode(response.body));
     notifyListeners();
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:template/itemhandler.dart';
+import 'package:template/ToDoListclass.dart';
 
 class NavigationDrawer extends StatelessWidget {
   @override
@@ -10,7 +11,7 @@ class NavigationDrawer extends StatelessWidget {
         children: [
           buildHeader(context),
           buildMenu(context),
-          buildQuickSelectList(context),
+          //buildQuickSelectList(context),
         ],
       ),
     );
@@ -50,4 +51,16 @@ Widget buildMenu(BuildContext context) => (Container(
       ),
     ));
 
-Widget buildQuickSelectList(BuildContext context) => (Container());
+// något är fel med hur objektet skickas skriv om och dubbelkolla hur det är gjort i itemview!
+
+//Widget buildQuickSelectList(BuildContext context) =>  children: Provider.of<ItemHandler>(context, listen: false)
+//           .allKeys
+//          .map((key) => _selectListTile(context, key))
+//        .toList();
+
+Widget _selectListTile(context, keyObject) {
+  print(keyObject);
+  return ListTile(
+      //title: Text(keyObject.tilte),
+      );
+}

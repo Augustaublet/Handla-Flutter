@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Inlämningsupgift moment 1 TIG333',
+        title: 'Aublet ToDo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
@@ -28,3 +28,16 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+// thing to do
+
+// # ändra data struktur för att hantera flera listor
+//    - Visa namn från listan(api)
+//    - Välja vilken lista som skall visas i drawe menyn
+//    - Testa på telefon och justera storlek för den skärmen
+//    - Ändra så att man läger till nytt objekt på samma sida(längst ner) (ta bort knappen)
+//    - Fixa så man kan svepa in menyn?
+//    - Sida för att skapa ny lista? (behöver apifix)
+//    - Ta bort lista(behöver apifix)
+//    - Menyval för de båda.
