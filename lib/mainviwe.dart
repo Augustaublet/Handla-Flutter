@@ -22,7 +22,7 @@ class _MainViweState extends State<MainViwe> {
         title: Center(
           child: Consumer<ItemHandler>(
             builder: (context, ItemHandler, _) =>
-                Text(ItemHandler.currentKey.title),
+                Text(ItemHandler.currentList.listTitle), //
           ),
         ),
         actions: [
@@ -48,7 +48,10 @@ class _MainViweState extends State<MainViwe> {
           ),
         ],
       ),
-      drawer: NavigationDrawer(),
+      drawer: Consumer<ItemHandler>(
+        builder: (context, ItemHandler, _) =>
+            NavigationDrawer(ItemHandler.allLists),
+      ),
       body: Consumer<ItemHandler>(
         builder: (context, ItemHandler, _) =>
             ItemViwe(_filtreraLista(ItemHandler.items, valtFilter)),

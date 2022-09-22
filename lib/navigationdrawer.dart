@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:template/ItemViwe.dart';
 import 'package:template/itemhandler.dart';
 import 'package:template/ToDoListclass.dart';
 
 class NavigationDrawer extends StatelessWidget {
+  final List<ToDoList> toDolists;
+  NavigationDrawer(this.toDolists);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        children: [
-          buildHeader(context),
-          buildMenu(context),
-          //buildQuickSelectList(context),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            buildHeader(context),
+            buildMenu(context),
+            const Divider(color: Colors.black54),
+            buildQuickSelectList(context, toDolists),
+          ],
+        ),
       ),
     );
   }
@@ -24,7 +32,7 @@ Widget buildHeader(BuildContext context) => (Container(
       color: Colors.blue,
       child: const Center(
           child: Text(
-        "ShoppingListan",
+        "ToDo App",
         style: TextStyle(fontSize: 32),
       )),
     ));
@@ -53,14 +61,29 @@ Widget buildMenu(BuildContext context) => (Container(
 
 // något är fel med hur objektet skickas skriv om och dubbelkolla hur det är gjort i itemview!
 
-//Widget buildQuickSelectList(BuildContext context) =>  children: Provider.of<ItemHandler>(context, listen: false)
-//           .allKeys
-//          .map((key) => _selectListTile(context, key))
-//        .toList();
+Widget buildQuickSelectList(BuildContext context, List<ToDoList> toDoLists) {
+  return Column(
+      children: toDoLists
+          .map((listObj) => _selectListTile(context, listObj))
+          .toList());
+}
 
-Widget _selectListTile(context, keyObject) {
-  print(keyObject);
-  return ListTile(
-      //title: Text(keyObject.tilte),
-      );
+Widget _selectListTile(context, listObject) {
+  return Container(
+    padding: EdgeInsets.only(top: 5, bottom: 5),
+    child: ListTile(
+      leading: listObject ==
+              Provider.of<ItemHandler>(context, listen: false).currentList
+          ? Container(height: 100, width: 8, color: Colors.blue)
+          : Container(
+              height: 100, width: 8, color: Color.fromARGB(255, 196, 193, 193)),
+      title: Text(listObject.listTitle),
+      onTap: () {
+        Provider.of<ItemHandler>(context, listen: false)
+            .setCurrentList(listObject);
+        Navigator.pop(context);
+      },
+      trailing: const Icon(Icons.more_vert),
+    ),
+  );
 }

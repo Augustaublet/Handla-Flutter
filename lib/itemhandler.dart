@@ -9,30 +9,42 @@ class ItemHandler extends ChangeNotifier {
   final String APIKEY = "mklsUgFnJ2AaFGeWz-RjjQ";
   List<Item> _items = [];
   List<ToDoList> _ToDoLists = [
-    ToDoList("lista1", "0v_DQMrr3Qk"),
-    ToDoList("lista2", "KvSFI95gEtg")
+    ToDoList(
+        listTitle: "kan du se dena lista är det något fel me uppkopplingen",
+        listID: "0v_DQMrr3Qk"),
   ];
-  var _currentList;
+  late ToDoList _currentList;
   String _mainUrl = "http://127.0.0.1:5000";
   String _path = "/api/shoppingList";
 
   // Construktor
   ItemHandler() {
-    _loadCurrentKey();
+    getAllLists();
+    _loadCurrentList();
     newItemList();
   }
 
   List<Item> get items => _items; // getter för lista med items
-  ToDoList get currentKey => _currentList;
-  List<ToDoList> get allKeys => _ToDoLists;
+  ToDoList get currentList => _currentList;
+  List<ToDoList> get allLists => _ToDoLists;
 
-  _loadCurrentKey() {
+  _loadCurrentList() {
     _currentList = _ToDoLists[0];
   }
 
-  Future getAllLists() async {
+  void setCurrentList(ToDoList switchToList) {
+    _currentList = switchToList;
+    newItemList();
+    notifyListeners();
+  }
+
+  Future<void> getAllLists() async {
     http.Response response = await http
-        .get(Uri.parse("${_mainUrl}/api/allshoppinglists?key=${APIKEY}"));
+        .get(Uri.parse("${_mainUrl}/api/allshoppinglists?key=$APIKEY"));
+    //print(jsonDecode(response.body));
+    _ToDoLists = createListOfLists(jsonDecode(response.body));
+    _loadCurrentList();
+    notifyListeners();
   }
 
   Future newItemList() async {
@@ -85,9 +97,20 @@ class ItemHandler extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Item> createList(ObjData) {
+  List<ToDoList> createListOfLists(objData) {
+    List<ToDoList> newList = [];
+    objData.forEach((newToDo) {
+      newList.add(ToDoList(
+        listTitle: newToDo["listTitle"],
+        listID: newToDo["listID"],
+      ));
+    });
+    return newList;
+  }
+
+  List<Item> createList(objData) {
     List<Item> newList = [];
-    ObjData.forEach((item) {
+    objData.forEach((item) {
       newList.add(Item(
         name: item["title"],
         id: item["id"],
