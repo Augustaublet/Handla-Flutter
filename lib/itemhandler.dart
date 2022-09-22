@@ -8,20 +8,17 @@ import './itemclass.dart';
 class ItemHandler extends ChangeNotifier {
   final String APIKEY = "mklsUgFnJ2AaFGeWz-RjjQ";
   List<Item> _items = [];
-  List<ToDoList> _ToDoLists = [
-    ToDoList(
-        listTitle: "kan du se dena lista är det något fel me uppkopplingen",
-        listID: "0v_DQMrr3Qk"),
-  ];
-  late ToDoList _currentList;
-  String _mainUrl = "http://127.0.0.1:5000";
-  String _path = "/api/shoppingList";
+  List<ToDoList> _ToDoLists = [];
 
+  late ToDoList _currentList;
+  //String _mainUrl = "http://127.0.0.1:5000";
+  String _mainUrl = "http://192.168.1.137:5000";
+
+  String _path = "/api/shoppingList";
+  bool loading = false;
   // Construktor
   ItemHandler() {
-    getAllLists();
-    _loadCurrentList();
-    newItemList();
+    starterFunction();
   }
 
   List<Item> get items => _items; // getter för lista med items
@@ -35,6 +32,18 @@ class ItemHandler extends ChangeNotifier {
   void setCurrentList(ToDoList switchToList) {
     _currentList = switchToList;
     newItemList();
+    notifyListeners();
+  }
+
+  Future<void> starterFunction() async {
+    loading = true;
+    notifyListeners();
+    http.Response response = await http
+        .get(Uri.parse("${_mainUrl}/api/allshoppinglists?key=$APIKEY"));
+    _ToDoLists = await createListOfLists(jsonDecode(response.body));
+    loading = false;
+    await _loadCurrentList();
+    await newItemList();
     notifyListeners();
   }
 
