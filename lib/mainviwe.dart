@@ -21,8 +21,9 @@ class _MainViweState extends State<MainViwe> {
         backgroundColor: Colors.grey,
         title: Center(
           child: Consumer<ItemHandler>(
-            builder: (context, ItemHandler, _) =>
-                Text(ItemHandler.currentList.listTitle), //
+            builder: (context, itemHandler, _) => itemHandler.loading
+                ? const Text("loading")
+                : Text(itemHandler.currentList.listTitle), //
           ),
         ),
         actions: [

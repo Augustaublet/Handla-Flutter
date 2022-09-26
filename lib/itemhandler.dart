@@ -11,8 +11,8 @@ class ItemHandler extends ChangeNotifier {
   List<ToDoList> _ToDoLists = [];
 
   late ToDoList _currentList;
-  //String _mainUrl = "http://127.0.0.1:5000";
-  String _mainUrl = "http://192.168.1.137:5000";
+  String _mainUrl = "http://127.0.0.1:5000";
+  // String _mainUrl = "http://192.168.1.168:5000";
 
   String _path = "/api/shoppingList";
   bool loading = false;

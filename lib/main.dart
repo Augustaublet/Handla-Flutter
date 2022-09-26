@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 // # ändra data struktur för att hantera flera listor
 //   DONE - Visa namn från listan(api) hämtar aktutuela listor från API
 //   DONE - Välja vilken lista som skall visas i drawe menyn
-//    - Testa på telefon och justera storlek för den skärmen
+//   DONE - Testa på telefon och justera storlek för den skärmen
 //    - Ändra så att man läger till nytt objekt på samma sida(längst ner) (ta bort knappen)
 //    - Fixa så man kan svepa in menyn?
 //    - Sida för att skapa ny lista? (behöver apifix)
