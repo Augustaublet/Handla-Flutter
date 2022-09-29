@@ -34,6 +34,5 @@ class MyApp extends StatelessWidget {
 
 //    - Ändra så att man läger till nytt objekt på samma sida(längst ner) (ta bort knappen)
 //    - Fixa så man kan svepa in menyn?
-//    - Sida för att skapa ny lista? (behöver apifix)
 //    - Ta bort lista(behöver apifix)
 //    - Menyval för de båda.
