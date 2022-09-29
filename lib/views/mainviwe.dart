@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:template/views/ItemViwe.dart';
+import 'package:template/views/ItemView.dart';
 import 'addviwe.dart';
 import '../components/itemclass.dart';
 import 'navigationdrawer.dart';
@@ -55,7 +55,7 @@ class _MainViweState extends State<MainViwe> {
       ),
       body: Consumer<MyProvider>(
         builder: (context, MyProvider, _) =>
-            ItemViwe(_filtreraLista(MyProvider.items, valtFilter)),
+            ItemView(_filtreraLista(MyProvider.items, valtFilter)),
       ),
       // body: ItemRow(),
       floatingActionButton: FloatingActionButton(

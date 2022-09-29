@@ -4,14 +4,26 @@ import '../components/itemclass.dart';
 
 import '../components/myprovider.dart';
 
-class ItemViwe extends StatelessWidget {
+class ItemView extends StatelessWidget {
   final List<Item> items;
 
-  ItemViwe(this.items);
+  ItemView(this.items);
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          buildItemTileList(context),
+          addNewItemTile(context),
+        ],
+      ),
+    );
+  }
+
+  Widget buildItemTileList(context) {
+    return Column(
         children: items.map((item) => _itemListTile(context, item)).toList());
   }
 
@@ -39,6 +51,25 @@ class ItemViwe extends StatelessWidget {
         padding: EdgeInsets.all(20.0),
         icon: Icon(Icons.delete_outline),
       ),
+    );
+  }
+
+  Widget addNewItemTile(context) {
+    TextEditingController _userInput = TextEditingController();
+    return ListTile(
+      title: TextField(
+        controller: _userInput,
+        onSubmitted: ((value) {
+          Provider.of<MyProvider>(context, listen: false).addItem(value);
+          _userInput.clear();
+        }),
+      ),
+      trailing: const Icon(
+        Icons.add,
+        color: Colors.blue,
+      ),
+      onTap: () => Provider.of<MyProvider>(context, listen: false)
+          .addItem(_userInput.text),
     );
   }
 }
