@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:template/ItemViwe.dart';
-import 'package:template/itemhandler.dart';
-import './addviwe.dart';
+import 'package:template/views/ItemViwe.dart';
+import 'addviwe.dart';
+import '../components/itemclass.dart';
+import 'navigationdrawer.dart';
+import '../components/myprovider.dart';
 
 class MainViwe extends StatefulWidget {
   @override
@@ -17,7 +19,13 @@ class _MainViweState extends State<MainViwe> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey,
-        title: Center(child: const Text("TIG 333 ToDo")),
+        title: Center(
+          child: Consumer<MyProvider>(
+            builder: (context, MyProvider, _) => MyProvider.loading
+                ? const Text("loading")
+                : Text(MyProvider.currentList.listTitle), //
+          ),
+        ),
         actions: [
           DropdownButtonHideUnderline(
             child: Container(
@@ -41,9 +49,13 @@ class _MainViweState extends State<MainViwe> {
           ),
         ],
       ),
-      body: Consumer<ItemHandler>(
-        builder: (context, ItemHandler, _) =>
-            ItemViwe(_filtreraLista(ItemHandler.items, valtFilter)),
+      drawer: Consumer<MyProvider>(
+        builder: (context, MyProvider, _) =>
+            NavigationDrawer(MyProvider.allLists),
+      ),
+      body: Consumer<MyProvider>(
+        builder: (context, MyProvider, _) =>
+            ItemViwe(_filtreraLista(MyProvider.items, valtFilter)),
       ),
       // body: ItemRow(),
       floatingActionButton: FloatingActionButton(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './itemhandler.dart';
+import '../components/myprovider.dart';
 
 class AddItemViwe extends StatelessWidget {
   @override
@@ -26,7 +26,7 @@ class AddItem extends StatelessWidget {
   TextEditingController userInput = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Consumer<ItemHandler>(builder: (context, ItemHandler, _) {
+    return Consumer<MyProvider>(builder: (context, MyProvider, _) {
       return Column(
         children: [
           Padding(
@@ -45,7 +45,7 @@ class AddItem extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              ItemHandler.addItem(userInput.text);
+              MyProvider.addItem(userInput.text);
               Navigator.pop(context);
             },
             child: const Padding(
