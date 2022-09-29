@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:template/components/myprovider.dart';
 import 'package:template/views/ItemViwe.dart';
 import 'package:template/components/ToDoListclass.dart';
+import 'package:template/views/addListView.dart';
 
 class NavigationDrawer extends StatelessWidget {
   final List<ToDoList> toDolists;
@@ -19,6 +20,7 @@ class NavigationDrawer extends StatelessWidget {
             buildMenu(context),
             const Divider(color: Colors.black54),
             buildQuickSelectList(context, toDolists),
+            addNewList(context),
           ],
         ),
       ),
@@ -35,6 +37,30 @@ Widget buildHeader(BuildContext context) => (Container(
         "ToDo App",
         style: TextStyle(fontSize: 32),
       )),
+    ));
+
+Widget addNewList(BuildContext context) => (Container(
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(
+              Icons.add,
+              size: 30,
+              color: Colors.green,
+            ),
+            title: const Text(
+              "Lägg till ny lista",
+              style: TextStyle(fontSize: 24),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddListViwe()),
+              );
+            },
+          ),
+        ],
+      ),
     ));
 
 Widget buildMenu(BuildContext context) => (Container(

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../components/myprovider.dart';
 
-class AddItemViwe extends StatelessWidget {
+class AddListViwe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +14,7 @@ class AddItemViwe extends StatelessWidget {
             Container(
               height: 20,
             ),
-            AddItem(),
+            AddList(),
           ],
         ),
       ),
@@ -22,7 +22,7 @@ class AddItemViwe extends StatelessWidget {
   }
 }
 
-class AddItem extends StatelessWidget {
+class AddList extends StatelessWidget {
   TextEditingController userInput = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -33,12 +33,12 @@ class AddItem extends StatelessWidget {
             padding: const EdgeInsets.only(left: 70, right: 70),
             child: TextField(
               onSubmitted: (value) {
-                MyProvider.addItem(value);
+                MyProvider.addNewList(value);
                 Navigator.pop(context);
               },
               controller: userInput,
               decoration: const InputDecoration(
-                hintText: "What are you gong to add?",
+                hintText: "Namn på ny lista",
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     width: 1,
@@ -49,7 +49,7 @@ class AddItem extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              MyProvider.addItem(userInput.text);
+              MyProvider.addNewList(userInput.text);
               Navigator.pop(context);
             },
             child: const Padding(

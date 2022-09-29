@@ -46,6 +46,14 @@ class MyProvider extends ChangeNotifier {
       _ToDoLists.add(ToDoList.fromJson(newList));
     }
   }
+  // Future<void> getLists ()async{
+  //   http.Response answer =
+  //       await http.get(Uri.parse('$mainUrl$listPathUrl'));
+  //   if (answer.statusCode == 200) {
+  //     List<dynamic> data = jsonDecode(answer.body);
+  //     updateLists(data);
+  //   }
+  // }
 
   Future<void> getItems() async {
     http.Response answer =
@@ -73,6 +81,16 @@ class MyProvider extends ChangeNotifier {
       }),
     );
     updateItems(json.decode(answer.body));
+  }
+
+  Future<void> addNewList(newListTitle) async {
+    http.Response answer = await http.post(
+      Uri.parse("$mainUrl$listPathUrl"),
+      headers: {"Content-Type": "application/json"},
+      body: json.encode({"newListTitle": newListTitle}),
+    );
+    updateLists(json.decode(answer.body));
+    getItems();
   }
 
   Future<void> updateItemIsDone(listItem) async {
