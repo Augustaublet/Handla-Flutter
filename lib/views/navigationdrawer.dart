@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:template/ItemViwe.dart';
-import 'package:template/itemhandler.dart';
-import 'package:template/ToDoListclass.dart';
+import 'package:template/components/myprovider.dart';
+import 'package:template/views/ItemViwe.dart';
+import 'package:template/components/ToDoListclass.dart';
 
 class NavigationDrawer extends StatelessWidget {
   final List<ToDoList> toDolists;
@@ -51,7 +51,7 @@ Widget buildMenu(BuildContext context) => (Container(
               style: TextStyle(fontSize: 24),
             ),
             onTap: () {
-              Provider.of<ItemHandler>(context, listen: false).removeAllDone();
+              Provider.of<MyProvider>(context, listen: false).removeAllDone();
               Navigator.pop(context);
             },
           ),
@@ -73,13 +73,13 @@ Widget _selectListTile(context, listObject) {
     padding: EdgeInsets.only(top: 5, bottom: 5),
     child: ListTile(
       leading: listObject ==
-              Provider.of<ItemHandler>(context, listen: false).currentList
+              Provider.of<MyProvider>(context, listen: false).currentList
           ? Container(height: 100, width: 8, color: Colors.blue)
           : Container(
               height: 100, width: 8, color: Color.fromARGB(255, 196, 193, 193)),
       title: Text(listObject.listTitle),
       onTap: () {
-        Provider.of<ItemHandler>(context, listen: false)
+        Provider.of<MyProvider>(context, listen: false)
             .setCurrentList(listObject);
         Navigator.pop(context);
       },

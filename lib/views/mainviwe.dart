@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:template/ItemViwe.dart';
-import 'package:template/itemhandler.dart';
-import './addviwe.dart';
-import './itemclass.dart';
-import "./navigationdrawer.dart";
+import 'package:template/views/ItemViwe.dart';
+import 'addviwe.dart';
+import '../components/itemclass.dart';
+import 'navigationdrawer.dart';
+import '../components/myprovider.dart';
 
 class MainViwe extends StatefulWidget {
   @override
@@ -20,10 +20,10 @@ class _MainViweState extends State<MainViwe> {
       appBar: AppBar(
         backgroundColor: Colors.grey,
         title: Center(
-          child: Consumer<ItemHandler>(
-            builder: (context, itemHandler, _) => itemHandler.loading
+          child: Consumer<MyProvider>(
+            builder: (context, MyProvider, _) => MyProvider.loading
                 ? const Text("loading")
-                : Text(itemHandler.currentList.listTitle), //
+                : Text(MyProvider.currentList.listTitle), //
           ),
         ),
         actions: [
@@ -49,13 +49,13 @@ class _MainViweState extends State<MainViwe> {
           ),
         ],
       ),
-      drawer: Consumer<ItemHandler>(
-        builder: (context, ItemHandler, _) =>
-            NavigationDrawer(ItemHandler.allLists),
+      drawer: Consumer<MyProvider>(
+        builder: (context, MyProvider, _) =>
+            NavigationDrawer(MyProvider.allLists),
       ),
-      body: Consumer<ItemHandler>(
-        builder: (context, ItemHandler, _) =>
-            ItemViwe(_filtreraLista(ItemHandler.items, valtFilter)),
+      body: Consumer<MyProvider>(
+        builder: (context, MyProvider, _) =>
+            ItemViwe(_filtreraLista(MyProvider.items, valtFilter)),
       ),
       // body: ItemRow(),
       floatingActionButton: FloatingActionButton(

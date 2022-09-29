@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import './ToDoListclass.dart';
-import './itemclass.dart';
+import 'ToDoListclass.dart';
+import 'itemclass.dart';
 
 class ItemHandler extends ChangeNotifier {
   final String APIKEY = "mklsUgFnJ2AaFGeWz-RjjQ";

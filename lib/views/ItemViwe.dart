@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './itemclass.dart';
+import '../components/itemclass.dart';
 
-import './itemhandler.dart';
+import '../components/myprovider.dart';
 
 class ItemViwe extends StatelessWidget {
   final List<Item> items;
@@ -20,7 +20,7 @@ class ItemViwe extends StatelessWidget {
       leading: Checkbox(
         value: item.isDone,
         onChanged: (bool? newValue) {
-          Provider.of<ItemHandler>(context, listen: false)
+          Provider.of<MyProvider>(context, listen: false)
               .updateItemIsDone(item);
         },
       ),
@@ -34,7 +34,7 @@ class ItemViwe extends StatelessWidget {
       ),
       trailing: IconButton(
         onPressed: () {
-          Provider.of<ItemHandler>(context, listen: false).removeItem(item);
+          Provider.of<MyProvider>(context, listen: false).removeItem(item);
         },
         padding: EdgeInsets.all(20.0),
         icon: Icon(Icons.delete_outline),
