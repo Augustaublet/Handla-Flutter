@@ -57,16 +57,16 @@ class _MainViweState extends State<MainViwe> {
         builder: (context, MyProvider, _) =>
             ItemView(_filtreraLista(MyProvider.items, valtFilter)),
       ),
-      // body: ItemRow(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AddItemViwe()),
-          );
-        },
-        child: Icon(Icons.add),
-      ),
+
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => AddItemViwe()),
+      //     );
+      //   },
+      //   child: Icon(Icons.add),
+      // ),
     );
   }
 

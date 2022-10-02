@@ -38,11 +38,11 @@ class ItemView extends StatelessWidget {
       ),
       title: Text(
         item.name,
-        overflow: TextOverflow.ellipsis,
+        // overflow: TextOverflow.ellipsis,
         style: item.isDone
             ? const TextStyle(
-                fontSize: 24, decoration: TextDecoration.lineThrough)
-            : const TextStyle(fontSize: 24),
+                fontSize: 18, decoration: TextDecoration.lineThrough)
+            : const TextStyle(fontSize: 18),
       ),
       trailing: IconButton(
         onPressed: () {
@@ -58,6 +58,17 @@ class ItemView extends StatelessWidget {
     TextEditingController _userInput = TextEditingController();
     return ListTile(
       title: TextField(
+        decoration: const InputDecoration(
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.green),
+          ),
+        ),
+        cursorHeight: 24,
+        cursorColor: Colors.grey,
+        textCapitalization: TextCapitalization.sentences,
         controller: _userInput,
         onSubmitted: ((value) {
           Provider.of<MyProvider>(context, listen: false).addItem(value);
@@ -65,8 +76,9 @@ class ItemView extends StatelessWidget {
         }),
       ),
       trailing: const Icon(
-        Icons.add,
-        color: Colors.blue,
+        Icons.add_circle_outline_rounded,
+        size: 30,
+        color: Colors.green,
       ),
       onTap: () => Provider.of<MyProvider>(context, listen: false)
           .addItem(_userInput.text),
