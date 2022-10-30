@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../components/itemclass.dart';
+import '../data/itemclass.dart';
 
-import '../components/myprovider.dart';
+import '../data/myprovider.dart';
 
 class ItemView extends StatelessWidget {
   final List<Item> items;

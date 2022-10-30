@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 
 import 'package:template/views/ItemView.dart';
 import 'addviwe.dart';
-import '../components/itemclass.dart';
+import '../data/itemclass.dart';
 import 'navigationdrawer.dart';
-import '../components/myprovider.dart';
+import '../data/myprovider.dart';
 
 class MainViwe extends StatefulWidget {
   @override
