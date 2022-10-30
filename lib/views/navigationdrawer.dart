@@ -63,26 +63,24 @@ Widget addNewList(BuildContext context) => (Container(
       ),
     ));
 
-Widget buildMenu(BuildContext context) => (Container(
-      child: Column(
-        children: [
-          ListTile(
-            leading: const Icon(
-              Icons.delete_forever_rounded,
-              size: 30,
-              color: Colors.blue,
-            ),
-            title: const Text(
-              "Rensa avklarade",
-              style: TextStyle(fontSize: 24),
-            ),
-            onTap: () {
-              Provider.of<MyProvider>(context, listen: false).removeAllDone();
-              Navigator.pop(context);
-            },
+Widget buildMenu(BuildContext context) => (Column(
+      children: [
+        ListTile(
+          leading: const Icon(
+            Icons.delete_forever_rounded,
+            size: 30,
+            color: Colors.blue,
           ),
-        ],
-      ),
+          title: const Text(
+            "Rensa avklarade",
+            style: TextStyle(fontSize: 20),
+          ),
+          onTap: () {
+            Provider.of<MyProvider>(context, listen: false).removeAllDone();
+            Navigator.pop(context);
+          },
+        ),
+      ],
     ));
 
 // något är fel med hur objektet skickas skriv om och dubbelkolla hur det är gjort i itemview!
@@ -96,11 +94,11 @@ Widget buildQuickSelectList(BuildContext context, List<ToDoList> toDoLists) {
 
 Widget _selectListTile(context, listObject) {
   return Container(
-    padding: EdgeInsets.only(top: 5, bottom: 5),
+    padding: const EdgeInsets.only(top: 5, bottom: 5),
     child: ListTile(
       leading: listObject ==
               Provider.of<MyProvider>(context, listen: false).currentList
-          ? Container(height: 100, width: 8, color: Colors.blue)
+          ? Container(height: 100, width: 8, color: Colors.green)
           : Container(
               height: 100, width: 8, color: Color.fromARGB(255, 196, 193, 193)),
       title: Text(listObject.listTitle),
