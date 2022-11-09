@@ -4,3 +4,5 @@ class MySecrets {
 
   String get url => _url;
 }
+
+final String detaProjectKey = "FILL_WITH_KEY";
