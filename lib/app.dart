@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:template/data/myprovider.dart';
+import 'package:template/views/loginView/login_view.dart';
 import 'package:template/views/main_view.dart';
 
 class MyApp extends StatelessWidget {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: MainViwe(),
+        home: LoginView(),
       ),
     );
   }
