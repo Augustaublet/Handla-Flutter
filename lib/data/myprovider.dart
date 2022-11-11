@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'ToDoListclass.dart';
 import 'itemclass.dart';
-import '../auth/secrets.dart';
+import 'package:template/auth/secrets.dart';
 
 class MyProvider extends ChangeNotifier {
   List<Item> _items = [];

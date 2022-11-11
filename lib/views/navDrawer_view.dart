@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:template/data/myprovider.dart';
-import 'package:template/views/ItemView.dart';
+import 'package:template/views/Item_view.dart';
 import 'package:template/data/ToDoListclass.dart';
-import 'package:template/views/addListView.dart';
+import 'package:template/views/addNewList_view.dart';
 
 class NavigationDrawer extends StatelessWidget {
   final List<ToDoList> toDolists;

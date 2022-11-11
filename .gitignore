@@ -49,4 +49,4 @@ app.*.map.json
 
 ./test.dart
 lib/test.txt
-lib/components/secrets.dart
+*secrets.dart
