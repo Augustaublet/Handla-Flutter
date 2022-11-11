@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:template/views/ItemView.dart';
-import 'addviwe.dart';
-import '../components/itemclass.dart';
-import 'navigationdrawer.dart';
-import '../components/myprovider.dart';
+import 'package:template/views/Item_view.dart';
+import 'addItem_view.dart';
+import '../data/itemclass.dart';
+import 'navDrawer_view.dart';
+import '../data/myprovider.dart';
 
 class MainViwe extends StatefulWidget {
   @override

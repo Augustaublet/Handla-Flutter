@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../components/myprovider.dart';
+import '../data/myprovider.dart';
 
 class AddListViwe extends StatelessWidget {
   @override
