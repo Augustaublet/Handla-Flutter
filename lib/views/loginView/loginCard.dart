@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:template/components/lableTextField.dart';
 import 'package:template/themes.dart';
 import 'package:template/components/costomButton.dart';
+import "package:flutter_secure_storage/flutter_secure_storage.dart";
+import 'package:template/views/main_view.dart';
 
 class LoginCard extends StatefulWidget {
-  late bool register;
   LoginCard({
     Key? key,
   }) : super(key: key);
@@ -14,17 +15,22 @@ class LoginCard extends StatefulWidget {
 }
 
 class _LoginCardState extends State<LoginCard> {
+  final secretsStorage = const FlutterSecureStorage();
+  late bool register;
+
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-    widget.register = false;
+    register = false;
+    _readFromStorage();
   }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController userNameController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
     var deviceWidth = MediaQuery.of(context).size.width;
     var deviceHeight = MediaQuery.of(context).size.height;
 
@@ -66,7 +72,7 @@ class _LoginCardState extends State<LoginCard> {
     return Padding(
       padding: const EdgeInsets.only(top: 60.0),
       child: Text(
-        widget.register ? "Register account" : "Login",
+        register ? "Register account" : "Login",
         style: Themes.textStyle.headline1,
       ),
     );
@@ -87,7 +93,7 @@ class _LoginCardState extends State<LoginCard> {
   }
 
   Widget _emailField(emailController) {
-    return widget.register
+    return register
         ? LabledTextField(lableText: "Email", controller: emailController)
         : Container();
   }
@@ -99,9 +105,20 @@ class _LoginCardState extends State<LoginCard> {
         height: 45,
         width: 80,
         color: Themes.colors.mediumDark,
-        onPressed: () {},
+        onPressed: () async {
+          if (register) {
+          } else {
+            // Saves login credentials to device.
+            await secretsStorage.write(
+                key: "KEY_USERNAME", value: userNameController.text);
+            await secretsStorage.write(
+                key: "KEY_PASSWORD", value: passwordController.text);
+          }
+          Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext context) => MainViwe()));
+        },
         text: Text(
-          widget.register ? "Sign up" : "Sign in",
+          register ? "Sign up" : "Sign in",
           style: Themes.textStyle.buttonText,
         ),
       ),
@@ -110,14 +127,21 @@ class _LoginCardState extends State<LoginCard> {
 
   Widget _navToSignUp() {
     return TextButton(
-      child: Text(widget.register ? "Back to Sign in" : "Sign up"),
+      child: Text(register ? "Back to Sign in" : "Sign up"),
       onPressed: () {
         setState(
           () {
-            widget.register = !widget.register;
+            register = register;
           },
         );
       },
     );
+  }
+
+  Future<void> _readFromStorage() async {
+    userNameController.text =
+        await secretsStorage.read(key: "KEY_USERNAME") ?? '';
+    passwordController.text =
+        await secretsStorage.read(key: "KEY_PASSWORD") ?? '';
   }
 }
