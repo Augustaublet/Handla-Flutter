@@ -24,7 +24,8 @@ class ItemView extends StatelessWidget {
 
   Widget buildItemTileList(context) {
     return Column(
-        children: items.map((item) => _itemListTile(context, item)).toList());
+      children: items.map((item) => _itemListTile(context, item)).toList(),
+    );
   }
 
   Widget _itemListTile(context, item) {
